@@ -3,22 +3,33 @@
 void yyerror(char *s);
 int yylex(void);
 %}
+
 %union {
     double dval;
 }
+
 %token <dval> DIGIT
-%token PLUS
 %type <dval> expr term factor
+
 %%
 
 line: expr '\n' { printf("%g\n", $1); }
     ;
 
 expr: expr '+' term { $$ = $1 + $3; }
+    | expr '-' term { $$ = $1 - $3; }
     | term { $$ = $1; }
     ;
 
 term: term '*' factor { $$ = $1 * $3; }
+    | term '/' factor { 
+          if ($3 == 0) {
+              yyerror("Division by zero!");
+              YYABORT;
+          } else {
+              $$ = $1 / $3;
+          }
+      }
     | factor
     ;
 
@@ -27,6 +38,7 @@ factor: '(' expr ')' { $$ = $2; }
     ;
 
 %%
+
 int main() {
     printf("Enter AE:\n");
     yyparse();
@@ -34,5 +46,5 @@ int main() {
 }
 
 void yyerror(char *s) {
-    printf("%s\n", s);
+    printf("Syntax Error: %s\n", s);
 }

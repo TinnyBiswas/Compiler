@@ -660,10 +660,9 @@ YY_DECL
 		}
 
 	{
-#line 6 "replace.l"
+#line 5 "replace.l"
 
-
-#line 666 "lex.yy.c"
+#line 665 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -722,24 +721,20 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 8 "replace.l"
+#line 6 "replace.l"
 {  // This will match any sequence of letters
     char *match;
     char new_text[1024];  // Buffer for storing modified text
     int i = 0;
-
     // Copy yytext into the new_text buffer
     strcpy(new_text, yytext);
-
     // Replace all occurrences of "abc" with "ABC"
     while ((match = strstr(new_text, "abc")) != NULL) {
         // Replace "abc" with "ABC"
         strncpy(match, "ABC", 3); // Copy "ABC" into the position of "abc"
-
         // Continue scanning from the position after the replacement
         match += 3;
     }
-
     // Print the modified text
     printf("%s", new_text);
 }
@@ -747,15 +742,15 @@ YY_RULE_SETUP
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 29 "replace.l"
+#line 22 "replace.l"
 ;  // Ignore whitespace
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 31 "replace.l"
+#line 23 "replace.l"
 ECHO;
 	YY_BREAK
-#line 758 "lex.yy.c"
+#line 753 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1760,15 +1755,12 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 31 "replace.l"
-
+#line 23 "replace.l"
 
 int main() {
     yylex();
     return 0;
 }
-
 int yywrap() {
     return 1;
 }
-
